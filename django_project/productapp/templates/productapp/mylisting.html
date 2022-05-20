@@ -1,0 +1,28 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+<div class="main-wrapper">
+    <div class="container">
+        <div class="title-wrapper"><h3 class="title">My Listing</h3></div>
+        <div class="products-wrapper mylisting-wrapper">
+        {% for product in products %}
+        <div class="mylist-item">
+            <div class="product-item">
+                <img class="w-40 h-40" src="{{ product.image.url }}" alt="{{ product.image.name }}">
+            </div>
+            <div class="product-item">
+                <div class="product-name">{{ product.name }}</div>
+                <div  class="product-price">$ {{ product.price }}</div>
+                <div class="product-description">{{ product.desc }}</div>
+                <div class="btn-block">
+                    <a class="btn" href="{% url 'productapp:update_product' product.id %}">Edit</a>
+                    <a class="btn" href="{% url 'productapp:delete_product' product.id %}">Delete</a>
+                </div>
+            </div>
+            
+        </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

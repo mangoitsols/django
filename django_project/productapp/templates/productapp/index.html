@@ -1,0 +1,60 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+
+{% load static %}
+	<!-- Site hero starts here-->
+	
+	<div class="container">
+	<!-- Site hero ends here-->
+	<div class="search-products-row">
+		<form class="search-form" method="GET">
+			<input class="font-bold text-lg text-gray-700" name="product_name" id="product_name" placeholder="Search Product..." type="text">
+			<button type="submit" class="fa fa-search"></button>
+		</form>
+
+	</div>
+	<div class="title-wrapper">
+		<h2 class="title">Products</h2>
+	</div>
+
+	<div class="products-wrapper">
+			<!--Card 1-->
+			{% for product in page_obj %}
+			<div class="product-item">
+				<a href = "{% url 'productapp:product_detail' product.id %}">
+					<div class="product-item-inner">
+						<div class="product-item-photo">
+							<img class="w-full" src="{{ product.image.url }}" alt="">
+						</div>
+						<div class="product-item-info">
+							<div class="product-name">{{ product.name }}</div>
+							<div class="product-price">${{ product.price }}</div>
+							<p class="product-desciption" text-gray-700 text-base>{{ product.desc }}</p>
+							<button type="button" class="cart-btn">Show More</button>
+						</div>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+			<!--Card 1 Ends Here-->
+	</div>
+	<!-- Pagination Code Starts Here -->
+	<div class="pagination-wrapper">
+		<div class="pagination">
+			{% if page_obj.has_previous %}
+				<a class="next-btn" href="?page=1">First Page</a>
+				<a class="prev-btn" href="?page={{page_obj.previous}}">Previous Page</a>
+			{% endif %}
+			<span class="page-no">
+				Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+			</span>
+			{% if page_obj.has_next %}
+				<a class="next-btn" href="?page={{page_obj.next_page_number}}">Next</a>
+				<a class="prev-btn" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+			{% endif %}
+		</div>
+	</div>
+	<!-- Pagination Code Ends Here -->
+</div>
+
+{% endblock %}

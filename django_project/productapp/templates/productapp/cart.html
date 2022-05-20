@@ -1,0 +1,69 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+<div class="main-wrapper">
+<div class="container text-xl text-black">
+    <div class="title-wrapper">
+        <h2 class="title">Shopping Cart</h2>
+    </div>
+    <div class="shopping-cart-wrapper">
+        {% if cart_item_count %}
+        <table class="cart-table">
+            <thead>
+                <tr class="justify-center">
+                    <th class="justify-center">Product</th>
+                    <th class="justify-center">Price</th>
+                    <th class="justify-center">Quantity</th>
+                    <th class="justify-center">Total</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr class="mt-16 p-10 justify-center">
+                    <td class="m-8 p-10">{{ item.product.name }}</td>
+                    <td class="m-8 p-10">{{ item.price }}</td>
+                    <td class="m-8 p-10 justify-center">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="text" name="quantity" class="form-control" value="{{ item.quantity }}">
+                    </td>
+                    <td>${{ item.total_cost }}</td>
+                    <td class="px-2">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="submit" name="submit" class="btn" value="Update">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <input type="submit" name="submit" class="btn" value="Remove">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="bg-white-500 text-green-700">
+                    <td colspan="3"><strong>Total</strong> </td>
+                    <td colspan="3"><strong>${{ cart_subtotal }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="btn-block">
+            {% if cart_item_count %}
+            <a href="{% url 'productapp:checkout' %}" class="btn">Checkout</a>
+            {% endif %}
+            <a href="{% url 'productapp:products' %}" class="btn">Continue Shopping</a>
+        </div>
+        {% else %}
+        <div class="cart-empty">
+            <h4>Your Cart is Empty.</h4>
+            <p>Add items to show in Your Cart.</p>
+        </div>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% include 'productapp/footer.html' %}

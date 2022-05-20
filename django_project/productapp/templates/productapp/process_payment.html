@@ -1,0 +1,16 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+<div class="main-wrapper">
+    <div class="container">
+        <div class="payment-process-wrapper">
+            <div class="title-wrapper">
+                <h4 class="title">Pay with PayPal</h4>
+            </div>
+            <div class="flex justify-center ">
+                {{ form.render }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% include 'productapp/footer.html' %}

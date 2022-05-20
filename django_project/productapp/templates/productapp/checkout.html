@@ -1,0 +1,73 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+<div class="main-wrapper">
+    <div class="container">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <div class="title-wrapper">
+            <h2 class="title">Checkout</h2>
+        </div>
+        <div class="checkout-wrapper">
+            <div class="checkout-left">
+                <h3>Shipping Address</h3>
+                <form class="checkout-form" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <div class="form-control input-field">{{ form.name }}</div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="form-control input-field">{{ form.email }}</div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="postal_code">Postal Code</label>
+                        <div class="form-control input-field">{{ form.postal_code }}</div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <div class="form-control input-field">{{ form.address }}</div>
+                    </div>
+                    <button class="btn" type="submit">Place Order</button>
+                </form>
+            </div>
+            <div class="checkout-right">
+                <h3>Order Summary</h3>
+                
+               
+                <div class="order-summary-wrapper">
+                    <table class="order-summary-grid">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>$ {{ item.product.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td colspan="2"><strong>${{ cart_subtotal }}</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% include 'productapp/footer.html' %}

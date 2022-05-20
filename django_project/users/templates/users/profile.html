@@ -1,0 +1,36 @@
+{% extends 'productapp/base.html' %}
+{% block content %}
+<div class="main-wrapper">
+    <div class="container">
+        <div class="profile-info-wrapper">
+            <div class="profile-photo">
+                <img src="{{ user.profile.image.url }}" alt="{{ user.username }}">
+            </div>
+            <div class="profile-info">
+                <ul class="profile-list">
+                    <li>
+                        <div class="label">Username</div>
+                        <div class="username">{{ user.username }}</div>
+                    </li>
+                    <li>
+                        <div class="label">Name</div>
+                        <div class="username">{{ user.profile.fname }} {{ user.profile.lname }}</div>
+                    </li>
+                    <li>
+                        <div class="label">Contact Number</div>
+                        <div class="username">{{ user.profile.contact_number }}</div>
+                    </li>
+                    <li>
+                        <div class="label">Email</div>
+                        <div class="username">{{ user.profile.email }}</div>
+                    </li>
+                    <li>
+                        <div class="label">Address</div>
+                        <div class="username">{{ user.profile.address }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
